@@ -34,9 +34,9 @@ export default class Locale {
 
     static async init(options = {}) {
         let {url, path, lang} = options;
-        if(!lang) {
-          lang = localStorage.getItem('lang') || Locale.$store.state.lang || 'en';
-        }
+
+        lang = localStorage.getItem('lang') || lang;
+
         Locale.url = url;
         Locale.path = path;
         return Locale.setLang(lang);
