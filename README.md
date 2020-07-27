@@ -63,6 +63,7 @@ Example of `/locale/en.json` file:
   }
 }
 ```
+
 5. Use v-locale directive in templates
 ```vue
 export default {
@@ -86,6 +87,17 @@ export default {
 | path | string or array | Path to locales js folder with locales names by languages (`en.js`, `es.js`, etc.). Optional (path or url required). |
 | url | string or array | Url to locales js folder with locales names by languages (`en.json`, `es.json`, etc.). Optional (path or url required). |
 ## Api
+You can access api methods by plugin object inside every vue component inside your project:
+```js
+export default {
+  name: 'main',
+  methods: {
+    changeLang(lang) {
+      this.$locale.setLang(lang);
+    }
+  }
+}
+```
 | Method | Description |
 | --- | --- |
 | init(options?) | Initializing library with options that described above. Return promise that resolved on locales ready. |
