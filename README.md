@@ -1,4 +1,8 @@
 # Vue locale library
+Library for make multi-language Vue applications. Allows to add v-locale directive to any html tag 
+for place locale content that bases on current language. Supports hot locales changing and remote json 
+locales content placement.
+
 ## Usage example
 Locales:
 ```json
@@ -60,9 +64,7 @@ Vue.prototype.$store = new Vuex.Store({
 export default {
   name: 'main',
   created() {
-    this.$locale.init(this.$store, {lang: 'en', url: '/locale/'}).then(() => {
-      this.$store.commit('locale_loaded', true);
-    });
+    this.$locale.init(this.$store, {lang: 'en', url: '/locale/'});
   }
 }
 ```
@@ -77,3 +79,31 @@ Example of `/locale/en.json` file:
   }
 }
 ```
+5. Use v-locale directive in templates
+```vue
+export default {
+    template: `
+    <div class="my-container">
+        <span class="label" v-locale="['my_container.label', {username}]"></span>
+        <pre class="description" v-locale="'my_container.description'"></pre>
+    </div>
+    `,
+    data() {
+        return {
+          username: 'Test user'
+        }
+    }
+}
+```
+## Init method options
+| Field | Type | Description |
+| --- | --- | --- |
+| lang | string | Default lang. Required. |
+| path | string or array | Path to locales js folder with locales names by languages (`en.js`, `es.js`, etc.). Optional (path or url required). |
+| url | string or array | Url to locales js folder with locales names by languages (`en.json`, `es.json`, etc.). Optional (path or url required). |
+## Api
+| Method | Description |
+| --- | --- |
+| get(key, options?) | Get locale content by key. Dots in key is separator for access fields of objects. Options - it is object that passes as lodash template variables, and can be accesses inside locales by <%= myVariable %> syntax. |
+| setLang(lang) | Change current lang. All directives in page will be change contents by current language locales automatically.|
+| waitForLoad() | Returns promise that resolves when locale will be loaded(useful for locales by url), or returns empty value immediately if locales already loaded.|
