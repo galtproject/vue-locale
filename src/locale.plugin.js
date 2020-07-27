@@ -10,43 +10,43 @@
 import Locale from "./locale";
 
 export default {
-    install (Vue, options = {}) {
-        Vue.prototype.$locale = Locale;
-        (window as any).$locale = Locale;
+  install (Vue, options = {}) {
+    Vue.prototype.$locale = Locale;
+    (window as any).$locale = Locale;
 
-      Vue.directive('locale', {
-        bind (el, binding) {
-          el.dataset.localOnLoadId = Locale.onLoad(() => {
-            setElContentByLocale(el, binding.value);
-          }).toString();
-
+    Vue.directive('locale', {
+      bind (el, binding) {
+        el.dataset.localOnLoadId = Locale.onLoad(() => {
           setElContentByLocale(el, binding.value);
-        },
-        update (el, binding) {
-          setElContentByLocale(el, binding.value);
-        },
-        unbind (el, binding) {
-          Locale.unbindOnLoad(el.dataset.localOnLoadId);
-        }
-      });
+        }).toString();
 
-      Vue.directive('locale-placeholder', {
-        bind (el, binding) {
-          el.dataset.localOnLoadId = Locale.onLoad(() => {
-            el.placeholder = Locale.get(binding.value) || '';
-          }).toString();
+        setElContentByLocale(el, binding.value);
+      },
+      update (el, binding) {
+        setElContentByLocale(el, binding.value);
+      },
+      unbind (el, binding) {
+        Locale.unbindOnLoad(el.dataset.localOnLoadId);
+      }
+    });
+
+    Vue.directive('locale-placeholder', {
+      bind (el, binding) {
+        el.dataset.localOnLoadId = Locale.onLoad(() => {
           el.placeholder = Locale.get(binding.value) || '';
-        },
-        update (el, binding) {
-          el.placeholder = Locale.get(binding.value) || '';
-        },
-        unbind: function (el, binding) {
-          Locale.unbindOnLoad(el.dataset.localOnLoadId);
-        }
-      });
-    }
+        }).toString();
+        el.placeholder = Locale.get(binding.value) || '';
+      },
+      update (el, binding) {
+        el.placeholder = Locale.get(binding.value) || '';
+      },
+      unbind: function (el, binding) {
+        Locale.unbindOnLoad(el.dataset.localOnLoadId);
+      }
+    });
+  }
 }
 
 function setElContentByLocale(el, key) {
-    el.innerHTML = Locale.get(key);
+  el.innerHTML = Locale.get(key);
 }

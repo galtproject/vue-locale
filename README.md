@@ -30,14 +30,18 @@ export default {
 }
 ```
 ## How to use:
-1. Include directive to Vue:
+1. Install by npm or yarn:
+```
+npm i -s vue-locale # or yarn add vue-locale
+```
+2. Include directive to Vue:
 ```js
 import Vue from 'vue';
 
 import locale from '@galtproject/vue-locale';
 Vue.use(locale.plugin);
 ```
-2. Add locale to your store
+3. Add locale to your store
 ```js
 import * as Vuex from "vuex";
 Vue.prototype.$store = new Vuex.Store({
@@ -59,7 +63,7 @@ Vue.prototype.$store = new Vuex.Store({
     }
 })
 ```
-3. Init plugin inside main component `created` event:
+4. Init plugin inside main component `created` event:
 ```js
 export default {
   name: 'main',
@@ -68,7 +72,7 @@ export default {
   }
 }
 ```
-4. Place files with locales JSON to public folder `/locale/`:
+5. Place files with locales JSON to public folder `/locale/`:
 
 Example of `/locale/en.json` file:
 ```json
@@ -79,7 +83,7 @@ Example of `/locale/en.json` file:
   }
 }
 ```
-5. Use v-locale directive in templates
+6. Use v-locale directive in templates
 ```vue
 export default {
     template: `
