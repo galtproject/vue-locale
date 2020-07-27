@@ -22,16 +22,21 @@ export default class Locale {
     static url;
     static loaded = false;
 
+    static content;
+
     // eventId => callback
     static onLoadEvents = {};
     static onLoadEventsCount = 0;
 
-    static async init(_store, options = {}) {
+    static setStore($store) {
+      Locale.$store = $store;
+    }
+
+    static async init(options = {}) {
         let {url, path, lang} = options;
         if(!lang) {
-          lang = localStorage.getItem('lang') || _store.state.lang || 'en';
+          lang = localStorage.getItem('lang') || Locale.$store.state.lang || 'en';
         }
-        Locale.$store = _store;
         Locale.url = url;
         Locale.path = path;
         return Locale.setLang(lang);
@@ -66,7 +71,7 @@ export default class Locale {
           }
         }
 
-        Locale.$store.commit('locale', extend({}, localeByPath, localeByUrl));
+        Locale.content = extend({}, localeByPath, localeByUrl);
         Locale.$store.commit('locale_loaded', true);
         Locale.loaded = true;
 
@@ -75,7 +80,7 @@ export default class Locale {
                 this.onLoadEvents[id]();
             }
         }
-        return Locale.$store.state.locale;
+        return Locale.content;
     }
 
     static get(key, options = null) {
@@ -91,13 +96,13 @@ export default class Locale {
         let result;
         if(options) {
           try {
-            result = template(get(Locale.$store.state.locale, key))(options) || '';
+            result = template(get(Locale.content, key))(options) || '';
           } catch (e) {
             console.error('Locale.get error', key, e);
             result = '';
           }
         } else {
-            result = get(Locale.$store.state.locale, key) || '';
+            result = get(Locale.content, key) || '';
         }
         if(!result && Locale.loaded) {
             console.error('[' + Locale.lang + '] Locale not found: ' + key);
@@ -110,7 +115,7 @@ export default class Locale {
         let keyParts = key.split('.');
         keyParts = keyParts.map(snakeCase);
         key = keyParts.join('.');
-        return !!get(Locale.$store.state.locale, key);
+        return !!get(Locale.content, key);
     }
 
     static async setLang(_lang) {

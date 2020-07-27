@@ -11,8 +11,9 @@ import Locale from "./locale";
 
 export default {
   install (Vue, options = {}) {
+    const {Vuex} = options;
+
     Vue.prototype.$locale = Locale;
-    (window as any).$locale = Locale;
 
     Vue.directive('locale', {
       bind (el, binding) {
@@ -45,6 +46,23 @@ export default {
         Locale.unbindOnLoad(el.dataset.localOnLoadId);
       }
     });
+
+    Vue.prototype.$localeStore = new Vuex.Store({
+      state: {
+        lang: null,
+        locale_loaded: false
+      },
+      mutations: {
+        lang: (state, newValue) => {
+          state.lang = newValue;
+        },
+        locale_loaded: (state, newValue) => {
+          state.locale_loaded = newValue;
+        }
+      }
+    });
+
+    Locale.setStore(Vue.prototype.$localeStore);
   }
 }
 

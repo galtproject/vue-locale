@@ -37,33 +37,13 @@ npm i -s vue-locale # or yarn add vue-locale
 2. Include directive to Vue:
 ```js
 import Vue from 'vue';
+import * as Vuex from "vuex";
 
 import locale from '@galtproject/vue-locale';
-Vue.use(locale.plugin);
+
+Vue.use(locale.plugin, {Vuex});
 ```
-3. Add locale to your store
-```js
-import * as Vuex from "vuex";
-Vue.prototype.$store = new Vuex.Store({
-    state: {
-      lang: null,
-      locale: null,
-      locale_loaded: false
-    },
-    mutations: {
-      lang: (state, newValue) => {
-        state.lang = newValue;
-      },
-      locale: (state, newValue) => {
-        state.locale = newValue;
-      },
-      locale_loaded: (state, newValue) => {
-        state.locale_loaded = newValue;
-      }
-    }
-})
-```
-4. Init plugin inside main component `created` event:
+3. Init plugin inside main component `created` event:
 ```js
 export default {
   name: 'main',
@@ -72,7 +52,7 @@ export default {
   }
 }
 ```
-5. Place files with locales JSON to public folder `/locale/`:
+4. Place files with locales JSON to public folder `/locale/`:
 
 Example of `/locale/en.json` file:
 ```json
@@ -83,7 +63,7 @@ Example of `/locale/en.json` file:
   }
 }
 ```
-6. Use v-locale directive in templates
+5. Use v-locale directive in templates
 ```vue
 export default {
     template: `
@@ -108,6 +88,7 @@ export default {
 ## Api
 | Method | Description |
 | --- | --- |
+| init(options?) | Initializing library with options that described above. Return promise that resolved on locales ready. |
 | get(key, options?) | Get locale content by key. Dots in key is separator for access fields of objects. Options - it is object that passes as lodash template variables, and can be accesses inside locales by <%= myVariable %> syntax. |
 | setLang(lang) | Change current lang. All directives in page will be change contents by current language locales automatically.|
 | waitForLoad() | Returns promise that resolves when locale will be loaded(useful for locales by url), or returns empty value immediately if locales already loaded.|
