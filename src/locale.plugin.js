@@ -33,18 +33,23 @@ export default {
     Vue.directive('locale-placeholder', {
       bind (el, binding) {
         el.dataset.localOnLoadId = Locale.onLoad(() => {
-          el.placeholder = Locale.get(binding.value) || '';
+          setElPlaceholderByLocale(el, binding.value);
         }).toString();
-        el.placeholder = Locale.get(binding.value) || '';
+
+        setElPlaceholderByLocale(el, binding.value);
       },
       update (el, binding) {
-        el.placeholder = Locale.get(binding.value) || '';
+        setElPlaceholderByLocale(el, binding.value);
       },
       unbind: function (el, binding) {
         Locale.unbindOnLoad(el.dataset.localOnLoadId);
       }
     });
   }
+}
+
+function setElPlaceholderByLocale(el, key) {
+  el.placeholder = Locale.get(key) || '';
 }
 
 function setElContentByLocale(el, key) {
