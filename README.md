@@ -1,4 +1,4 @@
-# Vue locale library
+# VueJs locale library
 Library for make multi-language Vue applications. Allows to add v-locale directive to any html tag 
 for place locale content that bases on current language. Supports hot locales changing and remote json 
 locales content placement.
