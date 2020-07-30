@@ -1,8 +1,9 @@
 {
   "name": "@galtproject/vue-locale",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index.js",
   "scripts": {},
+  "keywords": ["vue", "i18n", "locale", "localization", "javascript"],
   "engines": {
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
