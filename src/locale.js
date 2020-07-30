@@ -20,7 +20,6 @@ export default class Locale {
     static lang;
     static path;
     static url;
-    static loaded = false;
 
     static content;
 
@@ -42,18 +41,21 @@ export default class Locale {
         return Locale.setLang(lang);
     }
 
+    static isLoaded() {
+      return Locale.$store.state.isLoaded;
+    }
+
     static async loadLocale(){
-        Locale.$store.commit('loaded', false);
-        Locale.loaded = false;
+        Locale.$store.commit('isLoaded', false);
 
         let localeByPath = {};
-        if(Locale.path) {
-          if(isArray(Locale.path)) {
-            Locale.path.forEach(pathItem => {
-              extend(localeByPath, require(pathItem + Locale.lang));
+        if(Locale.extend) {
+          if(isArray(Locale.extend)) {
+            Locale.extend.forEach(extendItem => {
+              extend(localeByPath, extendItem[Locale.lang]);
             });
           } else {
-            localeByPath = require(Locale.path + Locale.lang);
+            localeByPath = require(Locale.extend[Locale.lang]);
           }
         }
 
@@ -72,8 +74,8 @@ export default class Locale {
         }
 
         Locale.content = extend({}, localeByPath, localeByUrl);
-        Locale.$store.commit('loaded', true);
-        Locale.loaded = true;
+        Locale.$store.commit('isLoaded', true);
+        Locale.$store.commit('changed', !Locale.$store.state.changed);
 
         for(let id in this.onLoadEvents) {
             if(this.onLoadEvents[id]) {
@@ -84,9 +86,10 @@ export default class Locale {
     }
 
     static setContent(content) {
-      Locale.$store.commit('loaded', false);
+      Locale.$store.commit('isLoaded', false);
       Locale.content = content;
-      Locale.$store.commit('loaded', true);
+      Locale.$store.commit('isLoaded', true);
+      Locale.$store.commit('changed', !Locale.$store.state.changed);
     }
 
     static get(key, options = null) {
@@ -110,7 +113,7 @@ export default class Locale {
         } else {
             result = get(Locale.content, key) || '';
         }
-        if(!result && Locale.loaded) {
+        if(!result && Locale.isLoaded()) {
             console.error('[' + Locale.lang + '] Locale not found: ' + key);
             result = key;
         }
@@ -150,7 +153,7 @@ export default class Locale {
     }
     static async waitForLoad() {
         return new Promise((resolve, reject) => {
-            if(Locale.loaded){
+            if(Locale.isLoaded()){
                 resolve();
             } else {
                 const onLoadId = Locale.onLoad(() => {

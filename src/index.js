@@ -7,8 +7,8 @@
  * [Basic Agreement](ipfs/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS)).
  */
 
-import lib from './src/locale';
-import plugin from './src/locale.plugin';
+import lib from './locale';
+import plugin from './locale.plugin';
 
 export default {
   lib,
