@@ -83,6 +83,12 @@ export default class Locale {
         return Locale.content;
     }
 
+    static setContent(content) {
+      Locale.$store.commit('loaded', false);
+      Locale.content = content;
+      Locale.$store.commit('loaded', true);
+    }
+
     static get(key, options = null) {
         if(isArray(key)) {
             options = key[1];
