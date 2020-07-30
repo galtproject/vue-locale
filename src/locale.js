@@ -43,7 +43,7 @@ export default class Locale {
     }
 
     static async loadLocale(){
-        Locale.$store.commit('locale_loaded', false);
+        Locale.$store.commit('loaded', false);
         Locale.loaded = false;
 
         let localeByPath = {};
@@ -72,7 +72,7 @@ export default class Locale {
         }
 
         Locale.content = extend({}, localeByPath, localeByUrl);
-        Locale.$store.commit('locale_loaded', true);
+        Locale.$store.commit('loaded', true);
         Locale.loaded = true;
 
         for(let id in this.onLoadEvents) {

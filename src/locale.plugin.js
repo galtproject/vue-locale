@@ -50,14 +50,14 @@ export default {
     Vue.prototype.$localeStore = new Vuex.Store({
       state: {
         lang: null,
-        locale_loaded: false
+        loaded: false
       },
       mutations: {
         lang: (state, newValue) => {
           state.lang = newValue;
         },
-        locale_loaded: (state, newValue) => {
-          state.locale_loaded = newValue;
+        loaded: (state, newValue) => {
+          state.loaded = newValue;
         }
       }
     });
