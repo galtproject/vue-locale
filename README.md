@@ -1,6 +1,6 @@
-# VueJs locale library
-Library for make multi-language Vue applications. Allows to add v-locale directive to any html tag 
-for place locale content that bases on current language. Supports hot locales changing and remote json 
+# VueJs locale plugin and directive
+Plugin for localization for VueJs applications. Allows to add v-locale directive to any html tag
+for place locale content that bases on current language. Supports hot locales changing and remote json
 locales content placement.
 
 ## Usage example
@@ -32,7 +32,7 @@ export default {
 ## How to use:
 1. Install by npm or yarn:
 ```
-npm i -s vue-locale # or yarn add vue-locale
+npm i -s @galtproject/vue-locale # or yarn add @galtproject/vue-locale
 ```
 2. Include directive to Vue:
 ```js
