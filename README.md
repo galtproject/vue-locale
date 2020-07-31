@@ -49,12 +49,12 @@ Vue.use(locale.plugin, {Vuex});
 ```
 3. Init plugin inside main component `created` event:
 ```js
-export default {
-  name: 'main',
+new Vue({
+  el: "#app",
   created() {
     this.$locale.init({lang: 'en', url: '/locale/'});
   }
-}
+});
 ```
 4. Place files with locales JSON to public folder `/locale/`:
 
