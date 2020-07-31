@@ -48,7 +48,7 @@ Vue.use(locale.plugin, {Vuex});
 export default {
   name: 'main',
   created() {
-    this.$locale.init(this.$store, {lang: 'en', url: '/locale/'});
+    this.$locale.init({lang: 'en', url: '/locale/'});
   }
 }
 ```
