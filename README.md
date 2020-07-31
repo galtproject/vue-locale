@@ -131,9 +131,9 @@ export default {
 ## Storage
 Storage is available inside vue components by field `$localeStore` and contains `lang`, `isLoaded` and `changed` fields.
 ```
-this.$localeStore.lang; // string: current language
-this.$localeStore.isLoaded; // bool: is locale loaded
-this.$localeStore.changed; // bool: trigger for subscribe to locales changing, useful in watch and compound functions
+this.$localeStore.state.lang; // string: current language
+this.$localeStore.state.isLoaded; // bool: is locale loaded
+this.$localeStore.state.changed; // bool: trigger for subscribe to locales changing, useful in watch and compound functions
 ```
 
 ## More examples
