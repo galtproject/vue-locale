@@ -84,7 +84,7 @@ export default {
 | Field | Type | Description |
 | --- | --- | --- |
 | lang | string | Default lang. Required. Can be replaced by 'lang' values from localStorage if persist. |
-| path | string or array | Path to locales js folder with locales names by languages (`en.js`, `es.js`, etc.). Optional (path or url required). |
+| extend | object or array | Object with locales separated by fields: en, ru, etc. Optional (extend or url required). |
 | url | string or array | Url to locales js folder with locales names by languages (`en.json`, `es.json`, etc.). Optional (path or url required). |
 ## Api
 You can access api methods by plugin object inside every vue component inside your project:
