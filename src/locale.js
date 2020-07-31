@@ -32,12 +32,13 @@ export default class Locale {
     }
 
     static async init(options = {}) {
-        let {url, path, lang} = options;
+        let {url, path, lang, cacheBuster} = options;
 
         lang = localStorage.getItem('lang') || lang;
 
         Locale.url = url;
         Locale.path = path;
+        Locale.cacheBuster = cacheBuster
         return Locale.setLang(lang);
     }
 
@@ -61,14 +62,15 @@ export default class Locale {
 
         let localeByUrl = {};
         if(Locale.url) {
+          let postfix = Locale.cacheBuster ? '?cacheBuster=' + Locale.cacheBuster : '';
           if(isArray(Locale.url)) {
             const promises = Locale.url.map(async urlItem => {
-              const {data: _locale} = await axios.get(urlItem + Locale.lang + '.json');
+              const {data: _locale} = await axios.get(urlItem + Locale.lang + '.json' + postfix);
               extend(localeByUrl, _locale);
             });
             await Promise.all(promises);
           } else {
-            const {data: _locale} = await axios.get(Locale.url + Locale.lang + '.json');
+            const {data: _locale} = await axios.get(Locale.url + Locale.lang + '.json' + postfix);
             localeByUrl = _locale;
           }
         }

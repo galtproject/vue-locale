@@ -86,6 +86,7 @@ export default {
 | lang | string | Default lang. Required. Can be replaced by 'lang' values from localStorage if persist. |
 | extend | object or array | Object with locales separated by fields: en, ru, etc. Optional (extend or url required). |
 | url | string or array | Url to locales js folder with locales names by languages (`en.json`, `es.json`, etc.). Optional (path or url required). |
+| cacheBuster | string | Id for adding as parameter to json url. Useful for avoid caching json for new builds of application. |
 ## Api
 You can access api methods by plugin object inside every vue component inside your project:
 ```js
