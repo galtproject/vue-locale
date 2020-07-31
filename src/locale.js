@@ -48,14 +48,14 @@ export default class Locale {
     static async loadLocale(){
         Locale.$store.commit('isLoaded', false);
 
-        let localeByPath = {};
+        let localeByExtend = {};
         if(Locale.extend) {
           if(isArray(Locale.extend)) {
             Locale.extend.forEach(extendItem => {
-              extend(localeByPath, extendItem[Locale.lang]);
+              extend(localeByExtend, extendItem[Locale.lang]);
             });
           } else {
-            localeByPath = require(Locale.extend[Locale.lang]);
+            localeByExtend = Locale.extend[Locale.lang];
           }
         }
 
@@ -73,7 +73,7 @@ export default class Locale {
           }
         }
 
-        Locale.content = extend({}, localeByPath, localeByUrl);
+        Locale.content = extend({}, localeByExtend, localeByUrl);
         Locale.$store.commit('isLoaded', true);
         Locale.$store.commit('changed', !Locale.$store.state.changed);
 
