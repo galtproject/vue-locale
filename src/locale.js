@@ -20,6 +20,7 @@ export default class Locale {
     static lang;
     static path;
     static url;
+    static extend;
 
     static content;
 
@@ -32,13 +33,14 @@ export default class Locale {
     }
 
     static async init(options = {}) {
-        let {url, path, lang, cacheBuster} = options;
+        let {url, path, lang, cacheBuster, extend} = options;
 
         lang = localStorage.getItem('lang') || lang;
 
         Locale.url = url;
         Locale.path = path;
-        Locale.cacheBuster = cacheBuster
+        Locale.cacheBuster = cacheBuster;
+        Locale.extend = extend;
         return Locale.setLang(lang);
     }
 
